@@ -38,9 +38,10 @@ public class CurrencyConversionController {
         Map<String, String> uriVariables = new HashMap<>();
         uriVariables.put("from", from);
         uriVariables.put("to", to);
-        ResponseEntity<CurrencyConversion> forEntity = restTemplate.getForEntity("http://localhost:8000/currency-exchange/from/{from}/to/{to}", 
+        ResponseEntity<CurrencyConversion> forEntity = restTemplate.getForEntity("http://localhost:8001/currency-exchange/from/{from}/to/{to}", 
         CurrencyConversion.class, uriVariables);
         CurrencyConversion currencyConversion = forEntity.getBody();
+        if(currencyConversion == null) throw new RuntimeException("Unable to find  data for "+from+" to "+to);
         return new CurrencyConversion(1000l, from, to, currencyConversion.getConversionMutiple(), quantity, 
         quantity.multiply(currencyConversion.getConversionMutiple()), currencyConversion.getEnvironment());
     }

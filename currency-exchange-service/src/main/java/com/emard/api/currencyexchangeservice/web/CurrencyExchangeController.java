@@ -1,7 +1,5 @@
 package com.emard.api.currencyexchangeservice.web;
 
-import java.math.BigDecimal;
-
 import com.emard.api.currencyexchangeservice.model.CurrencyExchange;
 
 import org.springframework.core.env.Environment;
