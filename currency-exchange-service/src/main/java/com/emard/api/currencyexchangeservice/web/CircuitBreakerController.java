@@ -17,14 +17,15 @@ public class CircuitBreakerController {
     
     @GetMapping("/sample-api")
     //@Retry(name = "sample-api", fallbackMethod = "hardcodedResponse")
+    //circuit breaker casse le circuit et donne une réponse par def au lieu de surcharger l'api qui a un pb
     //@CircuitBreaker(name = "sample-api", fallbackMethod = "hardcodedResponse")
-    //@RateLimiter(name = "default")
+    //@RateLimiter(name = "default")//nb de call par periode accepté
     @Bulkhead(name = "default")
     public String sampleApi() {
         log.info("Sample APi called received");
-        /*ResponseEntity<String> forEntity = new RestTemplate().getForEntity("http://localhost:8080/some-dummy-url", String.class);
-        return forEntity.getBody();*/
-        return "Sample api";
+        ResponseEntity<String> forEntity = new RestTemplate().getForEntity("http://localhost:8080/some-dummy-url", String.class);
+        return forEntity.getBody();
+        //return "Sample api";
     }
 
     public String hardcodedResponse(Exception e) {
