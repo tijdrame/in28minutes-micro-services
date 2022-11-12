@@ -12,6 +12,9 @@ spring:
       enabled: true
   datasource:
     url: jdbc:h2:mem:testdb
+  sleuth:
+    sampler:
+      probability: 1.0 #trace toute les req (0.1 trace 10% des req)
   
 eureka:
   client:
